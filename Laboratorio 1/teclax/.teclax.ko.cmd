@@ -1,0 +1,1 @@
+cmd_/home/osboxes/Desktop/teclax/teclax.ko := ld -r -m elf_x86_64 -T ./scripts/module-common.lds --build-id  -o /home/osboxes/Desktop/teclax/teclax.ko /home/osboxes/Desktop/teclax/teclax.o /home/osboxes/Desktop/teclax/teclax.mod.o ;  true

@@ -1,0 +1,1 @@
+cmd_/home/osboxes/Desktop/saludos/saludos.ko := ld -r -m elf_x86_64 -T ./scripts/module-common.lds --build-id  -o /home/osboxes/Desktop/saludos/saludos.ko /home/osboxes/Desktop/saludos/saludos.o /home/osboxes/Desktop/saludos/saludos.mod.o ;  true
