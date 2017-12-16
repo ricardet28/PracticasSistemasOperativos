@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <time.h>
 #include <sys/time.h>
-
+#include <sys/wait.h>
 
 #define N 1000
 #define M 1000
@@ -40,6 +41,21 @@ void ordena(int numero_aux)
 
 }
 
+void printeaMatriz(){
+
+
+
+	for ( int c1 = 0 ; c1 < N ; c1++)
+	{
+	      printf("Columna %d: ", c1);
+	      for ( int c2 = 0 ; c2 < M ; c2++ )
+			printf("%ld ", array[c1][c2]);
+	      printf("\n");
+	}
+
+  
+}
+
 int main()
 {
   int c1, c2;
@@ -57,10 +73,32 @@ int main()
 
   gettimeofday(&t_ini, NULL); /* obtiene tiempo inicial */
 
-  //para cada una de las filas, llamamos a ordena (que nos la ordena)
-  for ( c1 = 0 ; c1 < N ; c1++)
-    ordena(c1);
+ 
+  
+  if (fork() == 0){
 
+	for (int i=0; i<N/2; i++)
+		ordena(i);
+	
+	//printeaMatriz();
+	exit(0);
+
+
+
+  }
+
+  printf("\n\n\n");
+
+  if (fork() == 0){
+	for (int i= N/2; i<N; i++)
+		ordena(i);
+	//printeaMatriz();
+	exit(0);
+  }
+
+
+  wait(0);
+  wait(0);
   gettimeofday(&t_fin, NULL); /* obtiene tiempo final */
 
   secs = timeval_diff(&t_fin, &t_ini); /* Obtiene el tiempo consumido */
@@ -68,15 +106,7 @@ int main()
 
 
   //muestra por pantalla
-  printf("Listas ordenadas en orden ascendente:\n");
-/*
-  for ( c1 = 0 ; c1 < N ; c1++)
-    {
-      printf("Columna %d: ", c1);
-      for ( c2 = 0 ; c2 < M ; c2++ )
-	printf("%ld ", array[c1][c2]);
-      printf("\n");
-    }
-*/
+  //printf("Listas ordenadas en orden ascendente:\n");
+  
   exit(0);
 }
